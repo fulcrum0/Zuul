@@ -82,7 +82,7 @@ class Game
 	{
 		bool wantToQuit = false;
 
-		if(command.IsUnknown())
+		if (command.IsUnknown())
 		{
 			Console.WriteLine("I don't know what you mean...");
 			return wantToQuit; // false
@@ -99,6 +99,9 @@ class Game
 			case "quit":
 				wantToQuit = true;
 				break;
+			case "look":
+				Look();
+				break;
 		}
 
 		return wantToQuit;
@@ -107,7 +110,7 @@ class Game
 	// ######################################
 	// implementations of user commands:
 	// ######################################
-	
+
 	// Print out some help information.
 	// Here we print the mission and a list of the command words.
 	private void PrintHelp()
@@ -123,7 +126,7 @@ class Game
 	// room, otherwise print an error message.
 	private void GoRoom(Command command)
 	{
-		if(!command.HasSecondWord())
+		if (!command.HasSecondWord())
 		{
 			// if there is no second word, we don't know where to go...
 			Console.WriteLine("Go where?");
@@ -136,11 +139,16 @@ class Game
 		Room nextRoom = currentRoom.GetExit(direction);
 		if (nextRoom == null)
 		{
-			Console.WriteLine("There is no door to "+direction+"!");
+			Console.WriteLine("There is no door to " + direction + "!");
 			return;
 		}
 
 		currentRoom = nextRoom;
+		Console.WriteLine(currentRoom.GetLongDescription());
+	}
+
+	private void Look()
+	{
 		Console.WriteLine(currentRoom.GetLongDescription());
 	}
 }
