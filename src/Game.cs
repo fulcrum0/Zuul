@@ -22,20 +22,37 @@ class Game
 		Room pub = new Room("in the campus pub");
 		Room lab = new Room("in a computing lab");
 		Room office = new Room("in the computing admin office");
+		Room basement = new Room("in the basement");
+		Room secondFloor = new Room("on the 2. floor hallway");
+		Room boysWC = new Room("in the boys bathroom");
+		Room girlsWC = new Room("in the girls bathroom");
 
 		// Initialise room exits
 		outside.AddExit("east", theatre);
 		outside.AddExit("south", lab);
 		outside.AddExit("west", pub);
+		outside.AddExit("down", basement);
 
 		theatre.AddExit("west", outside);
+		theatre.AddExit("up", secondFloor);
+
+		secondFloor.AddExit("down", theatre);
+		secondFloor.AddExit("left", boysWC);
+		secondFloor.AddExit("right", girlsWC);
+
+		boysWC.AddExit("back", secondFloor);
+
+		girlsWC.AddExit("back", secondFloor);
 
 		pub.AddExit("east", outside);
+
+		basement.AddExit("up", outside);
 
 		lab.AddExit("north", outside);
 		lab.AddExit("east", office);
 
 		office.AddExit("west", lab);
+
 
 		// Create your Items here
 		// ...
