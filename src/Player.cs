@@ -12,7 +12,7 @@ class Player
     }
 
     //methods
-    void Damage(int amount)
+    public void Damage(int amount)
     {
         health -= amount;
         if (health <= 0)
@@ -21,7 +21,7 @@ class Player
         }
     }
 
-    void Heal(int amount)
+    public void Heal(int amount)
     {
         health += amount;
         if (health >= 100)
@@ -30,7 +30,7 @@ class Player
         }
     }
 
-    bool IsAlive()
+    public bool IsAlive()
     {
         return health > 0;
     }

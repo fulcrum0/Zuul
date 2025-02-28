@@ -166,6 +166,7 @@ class Game
 
 		player.CurrentRoom = nextRoom;
 		Console.WriteLine(player.CurrentRoom.GetLongDescription());
+		player.Damage(10);
 	}
 
 	private void Look()
