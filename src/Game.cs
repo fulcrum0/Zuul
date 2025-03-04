@@ -61,7 +61,7 @@ class Game
 		Item baseballBat = new Item(5, "Clean and barely used baseball bat.");
 		Item medkit = new Item(8, "Little pack of medical things");
 		// And add them to the Rooms
-		
+
 		// Start game outside
 		player.CurrentRoom = outside;
 	}
@@ -125,6 +125,12 @@ class Game
 			case "status":
 				Status(player);
 				break;
+			case "take":
+				Take(command);
+				break;
+			case "drop":
+				Drop(command);
+				break;
 		}
 
 		return wantToQuit;
@@ -179,5 +185,38 @@ class Game
 	private void Status(Player player)
 	{
 		System.Console.WriteLine($"Health is {player.GetHealth()}/100");
+	}
+
+	private void Take(Command command)
+	{
+		if (!command.HasSecondWord())
+		{
+			System.Console.WriteLine("What do you want to take?");
+			return;
+		}
+
+		string itemName = command.SecondWord;
+		bool success = player.TakeFromChest(itemName);
+
+		if (success)
+		{
+			System.Console.WriteLine($"{itemName} is added to your inventory.");
+		}
+	}
+
+	private void Drop(Command command)
+	{
+		if (!command.HasSecondWord())
+		{
+			System.Console.WriteLine("What do you want to drop?");
+		}
+
+		string itemName = command.SecondWord;
+		bool success = player.DropToChest(itemName);
+
+		if (success)
+		{
+			System.Console.WriteLine($"{itemName} is deleted from your inventory.");
+		}
 	}
 }
