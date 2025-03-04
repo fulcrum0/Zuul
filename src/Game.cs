@@ -57,8 +57,9 @@ class Game
 
 		// Create your Items here
 		Item knife = new Item(2, "Old and regular knife.");
+		Item pencil = new Item(1, "Basic pencil");
 		Item baseballBat = new Item(5, "Clean and barely used baseball bat.");
-		Item medkit = new Item(3, "Little pack of medical things");
+		Item medkit = new Item(8, "Little pack of medical things");
 		// And add them to the Rooms
 		
 		// Start game outside
