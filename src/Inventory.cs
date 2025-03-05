@@ -27,7 +27,7 @@ class Inventory
     {
         if (!items.ContainsKey(itemName))
         {
-            System.Console.WriteLine("item couldn't be found.");
+            System.Console.WriteLine($"{itemName} couldn't be found.");
             return null;
         }
 
@@ -49,5 +49,14 @@ class Inventory
     public int FreeWeight()
     {
         return maxWeight - TotalWeight();
+    }
+
+    public void ShowItems()
+    {
+        Console.WriteLine("Items: ");
+        foreach (var itemName in items.Keys)
+        {
+            Console.WriteLine(itemName);
+        }
     }
 }

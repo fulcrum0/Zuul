@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.InteropServices;
 
 class Game
 {
@@ -62,6 +63,10 @@ class Game
 		Item medkit = new Item(8, "Little pack of medical things");
 		// And add them to the Rooms
 
+		theatre.Chest.Put("knife", knife);
+		outside.Chest.Put("pencil", pencil);
+		pub.Chest.Put("baseballBat", baseballBat);
+		boysWC.Chest.Put("medkit", medkit);
 		// Start game outside
 		player.CurrentRoom = outside;
 	}
@@ -92,7 +97,7 @@ class Game
 		Console.WriteLine("Zuul is a new, incredibly boring adventure game.");
 		Console.WriteLine("Type 'help' if you need help.");
 		Console.WriteLine();
-		Console.WriteLine(player.CurrentRoom.GetLongDescription());
+		Look();
 	}
 
 	// Given a command, process (that is: execute) the command.
@@ -130,6 +135,9 @@ class Game
 				break;
 			case "drop":
 				Drop(command);
+				break;
+			case "use":
+				Use(command.SecondWord);
 				break;
 		}
 
@@ -173,13 +181,22 @@ class Game
 		}
 
 		player.CurrentRoom = nextRoom;
-		Console.WriteLine(player.CurrentRoom.GetLongDescription());
+		Look();
 		player.Damage(10);
 	}
 
 	private void Look()
 	{
 		Console.WriteLine(player.CurrentRoom.GetLongDescription());
+		if (player.CurrentRoom.Chest.TotalWeight() <= 0)
+		{
+			System.Console.WriteLine("There is nothing to be found");
+		}
+		else
+		{
+			// System.Console.WriteLine();
+			player.CurrentRoom.Chest.ShowItems();
+		}
 	}
 
 	private void Status(Player player)
@@ -217,6 +234,18 @@ class Game
 		if (success)
 		{
 			System.Console.WriteLine($"{itemName} is deleted from your inventory.");
+		}
+	}
+
+	public string Use(string itemName)
+	{
+		switch (itemName)
+		{
+			case "medkit":
+				player.Heal(40);
+				return $"{itemName} used. Your HP is {player.GetHealth()}/100.";
+			default:
+				return $"{itemName} cannot be used.";
 		}
 	}
 }

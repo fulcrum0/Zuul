@@ -33,6 +33,7 @@ class Player
         {
             health = 100;
         }
+        System.Console.WriteLine($"You feel refreshed. Your HP is {GetHealth()}/100");
     }
 
     public bool IsAlive()
@@ -83,5 +84,10 @@ class Player
         CurrentRoom.Chest.Put(itemName, item);
         System.Console.WriteLine($"You put {itemName} in the chest.");
         return true;
+    }
+
+    public Inventory GetInventory()
+    {
+        return backpack;
     }
 }
