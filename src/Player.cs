@@ -86,8 +86,8 @@ class Player
         return true;
     }
 
-    public Inventory GetInventory()
+    public string GetInventory()
     {
-        return backpack;
+        return backpack.GetItems();
     }
 }

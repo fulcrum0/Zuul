@@ -202,6 +202,7 @@ class Game
 	private void Status(Player player)
 	{
 		System.Console.WriteLine($"Health is {player.GetHealth()}/100");
+		Console.WriteLine($"Inventory: {player.GetInventory()}/10");
 	}
 
 	private void Take(Command command)

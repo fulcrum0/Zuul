@@ -59,4 +59,13 @@ class Inventory
             Console.WriteLine(itemName);
         }
     }
+
+    public string GetItems()
+    {
+        if (items.Count == 0)
+        {
+            return "Your backpack is empty";
+        }
+        return string.Join(", ", items.Keys);
+    }
 }
