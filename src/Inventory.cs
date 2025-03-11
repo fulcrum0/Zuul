@@ -16,7 +16,7 @@ class Inventory
     {
         if (item.Weight > FreeWeight())
         {
-            System.Console.WriteLine("Not enough space");
+            Console.WriteLine("Not enough space");
             return false;
         }
         items.Add(itemName, item);
@@ -27,7 +27,7 @@ class Inventory
     {
         if (!items.ContainsKey(itemName))
         {
-            System.Console.WriteLine($"{itemName} couldn't be found.");
+            Console.WriteLine($"{itemName} couldn't be found.");
             return null;
         }
 
@@ -67,5 +67,10 @@ class Inventory
             return "Your backpack is empty";
         }
         return string.Join(", ", items.Keys);
+    }
+
+    public void Remove(string itemName)
+    {
+        items.Remove(itemName);
     }
 }

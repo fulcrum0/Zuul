@@ -24,10 +24,11 @@ class Game
 		Room pub = new Room("in the campus pub");
 		Room lab = new Room("in a computing lab");
 		Room office = new Room("in the computing admin office");
-		Room basement = new Room("in the basement");
+		Room basement = new Room("in the basement. There is a secret path to somewhere secret. But the bookshelf is blocking your way");
 		Room secondFloor = new Room("on the 2. floor hallway");
 		Room boysWC = new Room("in the boys bathroom");
 		Room girlsWC = new Room("in the girls bathroom");
+		Room secretRoom = new Room("in the secret room.");
 
 		// Initialise room exits
 		outside.AddExit("east", theatre);
@@ -49,6 +50,9 @@ class Game
 		pub.AddExit("east", outside);
 
 		basement.AddExit("up", outside);
+		basement.AddExit("forward", secretRoom);
+
+		secretRoom.AddExit("back", basement);
 
 		lab.AddExit("north", outside);
 		lab.AddExit("east", office);
@@ -58,15 +62,14 @@ class Game
 
 		// Create your Items here
 		Item knife = new Item(2, "Old and regular knife.");
-		Item pencil = new Item(1, "Basic pencil");
 		Item baseballBat = new Item(5, "Clean and barely used baseball bat.");
 		Item medkit = new Item(8, "Little pack of medical things");
 		// And add them to the Rooms
 
 		theatre.Chest.Put("knife", knife);
-		outside.Chest.Put("pencil", pencil);
 		pub.Chest.Put("baseballBat", baseballBat);
 		boysWC.Chest.Put("medkit", medkit);
+		pub.Chest.Put("medkit", medkit);
 		// Start game outside
 		player.CurrentRoom = outside;
 	}
@@ -190,26 +193,26 @@ class Game
 		Console.WriteLine(player.CurrentRoom.GetLongDescription());
 		if (player.CurrentRoom.Chest.TotalWeight() <= 0)
 		{
-			System.Console.WriteLine("There is nothing to be found");
+			Console.WriteLine("There is nothing to be found");
 		}
 		else
 		{
-			// System.Console.WriteLine();
 			player.CurrentRoom.Chest.ShowItems();
 		}
 	}
 
 	private void Status(Player player)
 	{
-		System.Console.WriteLine($"Health is {player.GetHealth()}/100");
-		Console.WriteLine($"Inventory: {player.GetInventory()}/10");
+		Console.WriteLine($"Health is {player.GetHealth()}/100");
+		Console.WriteLine($"Capacity: {player.Backpack.TotalWeight()}/10");
+		Console.WriteLine($"Inventory: {player.GetInventory()}");
 	}
 
 	private void Take(Command command)
 	{
 		if (!command.HasSecondWord())
 		{
-			System.Console.WriteLine("What do you want to take?");
+			Console.WriteLine("What do you want to take?");
 			return;
 		}
 
@@ -218,7 +221,7 @@ class Game
 
 		if (success)
 		{
-			System.Console.WriteLine($"{itemName} is added to your inventory.");
+			Console.WriteLine($"{itemName} is added to your inventory.");
 		}
 	}
 
@@ -226,7 +229,7 @@ class Game
 	{
 		if (!command.HasSecondWord())
 		{
-			System.Console.WriteLine("What do you want to drop?");
+			Console.WriteLine("What do you want to drop?");
 		}
 
 		string itemName = command.SecondWord;
@@ -234,7 +237,7 @@ class Game
 
 		if (success)
 		{
-			System.Console.WriteLine($"{itemName} is deleted from your inventory.");
+			Console.WriteLine($"{itemName} is deleted from your inventory.");
 		}
 	}
 
@@ -243,8 +246,18 @@ class Game
 		switch (itemName)
 		{
 			case "medkit":
-				player.Heal(40);
+				if (!player.GetInventory().Contains("medkit"))
+				{
+					Console.WriteLine($"There is no {itemName} in your inventory!");
+				}
+				else
+				{
+					player.Heal(40);
+					player.Backpack.Remove(itemName);
+				}
 				return $"{itemName} used. Your HP is {player.GetHealth()}/100.";
+			// case "knife":
+			// 	player
 			default:
 				return $"{itemName} cannot be used.";
 		}

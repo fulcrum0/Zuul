@@ -16,6 +16,11 @@ class Player
         backpack = new Inventory(10);
     }
 
+    public Inventory Backpack
+    {
+        get { return backpack; }
+    }
+
     //methods
     public void Damage(int amount)
     {
@@ -33,7 +38,7 @@ class Player
         {
             health = 100;
         }
-        System.Console.WriteLine($"You feel refreshed. Your HP is {GetHealth()}/100");
+        Console.WriteLine($"You healed yourself.");
     }
 
     public bool IsAlive()
@@ -52,23 +57,22 @@ class Player
 
         if (item == null)
         {
-            System.Console.WriteLine($"{item} is not in the chest.");
+            Console.WriteLine($"{itemName} is not in the chest.");
             return false;
         }
 
-        // if (item.Weight > backpack.FreeWeight())
-        // {
-        //     System.Console.WriteLine("Not enough space in your backpack");
-        //     return false;
-        // }
+        if (item.Weight > backpack.FreeWeight())
+        {
+            Console.WriteLine($"You don't have enough space in your backpack");
+            CurrentRoom.Chest.Put(itemName, item);
+            return false;
+        }
 
         bool success = backpack.Put(itemName, item);
         if (!success)
         {
             CurrentRoom.Chest.Put(itemName, item);
         }
-
-        System.Console.WriteLine($"You took {item} from the chest.");
         return true;
     }
 
@@ -77,12 +81,12 @@ class Player
         Item item = backpack.Get(itemName);
         if (item == null)
         {
-            System.Console.WriteLine($"{itemName} is not in your backpack.");
+            Console.WriteLine($"{itemName} is not in your backpack.");
             return false;
         }
 
         CurrentRoom.Chest.Put(itemName, item);
-        System.Console.WriteLine($"You put {itemName} in the chest.");
+        Console.WriteLine($"You put {itemName} in the chest.");
         return true;
     }
 
