@@ -60,7 +60,6 @@ class Game
 		Item baseballBat = new Item(5, "Clean and barely used baseball bat.");
 		Item medkit = new Item(8, "Little pack of medical things");
 		// And add them to the Rooms
-
 		theatre.Chest.Put("knife", knife);
 		pub.Chest.Put("baseballBat", baseballBat);
 		boysWC.Chest.Put("medkit", medkit);
@@ -251,8 +250,6 @@ class Game
 					player.Backpack.Remove(itemName);
 				}
 				return $"{itemName} used. Your HP is {player.GetHealth()}/100.";
-			// case "knife":
-			// 	player
 			default:
 				return $"{itemName} cannot be used.";
 		}
