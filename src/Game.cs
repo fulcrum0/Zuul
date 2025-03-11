@@ -59,6 +59,7 @@ class Game
 
 		office.AddExit("west", lab);
 
+		basement.GetExit("forward").SetBarrier("bookshelf");
 
 		// Create your Items here
 		Item knife = new Item(2, "Old and regular knife.");
@@ -177,6 +178,12 @@ class Game
 
 		// Try to go to the next room.
 		Room nextRoom = player.CurrentRoom.GetExit(direction);
+		if (nextRoom.IsBlocked())
+		{
+			nextRoom.BarrierWarning();
+			return;
+		}
+
 		if (nextRoom == null)
 		{
 			Console.WriteLine("There is no door to " + direction + "!");
