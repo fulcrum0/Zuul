@@ -4,7 +4,6 @@ using System.Runtime.InteropServices;
 class Room
 {
 	// Private fields
-	private string barrier;
 	private string description;
 	private Dictionary<string, Room> exits; // stores exits of this room.
 	private Inventory chest;
@@ -67,24 +66,5 @@ class Room
 		str += String.Join(", ", exits.Keys);
 
 		return str;
-	}
-
-	public void SetBarrier(string barrierName)
-	{
-		barrier = barrierName;
-	}
-
-	public bool IsBlocked()
-	{
-		if (barrier != null)
-		{
-			return true;
-		}
-		return false;
-	}
-
-	public void BarrierWarning()
-	{
-		Console.WriteLine($"{barrier} is blocking your way.");
 	}
 }

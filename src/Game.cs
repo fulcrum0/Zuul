@@ -24,11 +24,10 @@ class Game
 		Room pub = new Room("in the campus pub");
 		Room lab = new Room("in a computing lab");
 		Room office = new Room("in the computing admin office");
-		Room basement = new Room("in the basement. There is a secret path to somewhere secret. But the bookshelf is blocking your way");
+		Room basement = new Room("in the basement.");
 		Room secondFloor = new Room("on the 2. floor hallway");
 		Room boysWC = new Room("in the boys bathroom");
 		Room girlsWC = new Room("in the girls bathroom");
-		Room secretRoom = new Room("in the secret room.");
 
 		// Initialise room exits
 		outside.AddExit("east", theatre);
@@ -50,16 +49,11 @@ class Game
 		pub.AddExit("east", outside);
 
 		basement.AddExit("up", outside);
-		basement.AddExit("forward", secretRoom);
-
-		secretRoom.AddExit("back", basement);
 
 		lab.AddExit("north", outside);
 		lab.AddExit("east", office);
 
 		office.AddExit("west", lab);
-
-		basement.GetExit("forward").SetBarrier("bookshelf");
 
 		// Create your Items here
 		Item knife = new Item(2, "Old and regular knife.");
@@ -178,12 +172,6 @@ class Game
 
 		// Try to go to the next room.
 		Room nextRoom = player.CurrentRoom.GetExit(direction);
-		if (nextRoom.IsBlocked())
-		{
-			nextRoom.BarrierWarning();
-			return;
-		}
-
 		if (nextRoom == null)
 		{
 			Console.WriteLine("There is no door to " + direction + "!");
