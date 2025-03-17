@@ -56,9 +56,9 @@ class Game
 		office.AddExit("west", lab);
 
 		// Create your Items here
-		Item knife = new Item(2, "Old and regular knife.");
-		Item baseballBat = new Item(5, "Clean and barely used baseball bat.");
-		Item medkit = new Item(8, "Little pack of medical things");
+		Item knife = new Item(2);
+		Item baseballBat = new Item(5);
+		Item medkit = new Item(8);
 		// And add them to the Rooms
 		theatre.Chest.Put("knife", knife);
 		pub.Chest.Put("baseballBat", baseballBat);
@@ -237,21 +237,20 @@ class Game
 
 	public string Use(string itemName)
 	{
-		switch (itemName)
+		if (!player.GetInventory().Contains(itemName))
 		{
-			case "medkit":
-				if (!player.GetInventory().Contains("medkit"))
-				{
-					Console.WriteLine($"There is no {itemName} in your inventory!");
-				}
-				else
-				{
+			Console.WriteLine($"There is no {itemName} in your inventory!");
+		}
+		else
+		{
+			switch (itemName)
+			{
+				case "medkit":
 					player.Heal(40);
 					player.Backpack.Remove(itemName);
-				}
-				return $"{itemName} used. Your HP is {player.GetHealth()}/100.";
-			default:
-				return $"{itemName} cannot be used.";
+					return $"{itemName} is used.";
+			}
 		}
+		return $"{itemName} cannot be used.";
 	}
 }

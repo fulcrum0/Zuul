@@ -38,7 +38,7 @@ class Player
         {
             health = 100;
         }
-        Console.WriteLine($"You healed yourself.");
+        Console.WriteLine($"You healed yourself. Your hp is {health}/100");
     }
 
     public bool IsAlive()
