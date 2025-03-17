@@ -29,10 +29,10 @@ class Game
 		Room boysWC = new Room("in the boys bathroom");
 		Room girlsWC = new Room("in the girls bathroom");
 		Room secretRoom = new Room("in the secret room");
-		Room exit = new Room("end of the game. Congratulations!");
+		Room exit = new Room("in the exit of the university.");
 
-		basement.Block(true);
-		outside.Block(true);
+		basement.Block("bookshelf", true);
+		outside.Block("padlock", true);
 
 		// Initialise room exits
 		outside.AddExit("north", exit);
@@ -206,6 +206,12 @@ class Game
 		player.CurrentRoom = nextRoom;
 		Look();
 		player.Damage(10);
+
+		if (nextRoom.GetShortDescription() == "in the exit of the university.")
+		{
+			Console.WriteLine("You have succesfully beat the game. Congratulations!");
+			Environment.Exit(0);
+		}
 	}
 
 	private void Look()
@@ -273,18 +279,15 @@ class Game
 			{
 				case "medkit":
 					player.Heal(40);
-					player.Backpack.Remove(itemName);
-					return $"{itemName} is used.";
+					break;
 				case "knife":
 					player.AttackKnife();
 					break;
 				case "baseballBat":
 					player.AttackBaseballBat();
-					player.Backpack.Remove(itemName);
 					break;
 				case "key":
 					player.UseKey();
-					player.Backpack.Remove(itemName);
 					break;
 			}
 		}

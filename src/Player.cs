@@ -47,6 +47,7 @@ class Player
             health = 100;
         }
         Console.WriteLine($"You healed yourself. Your hp is {health}/100");
+        Backpack.Remove("medkit");
     }
 
     public int GetHealth()
@@ -112,10 +113,11 @@ class Player
 
     public void AttackBaseballBat()
     {
-        if (CurrentRoom.HasBlock())
+        if (CurrentRoom.HasBlock() && CurrentRoom.GetBlockName() == "bookshelf")
         {
             Console.WriteLine($"You broke the barricade with the baseball bat.");
-            CurrentRoom.Block(false);
+            CurrentRoom.Block(null, false);
+            Backpack.Remove("baseballBat");
         }
         else
         {
@@ -125,10 +127,11 @@ class Player
 
     public void UseKey()
     {
-        if (CurrentRoom.HasBlock())
+        if (CurrentRoom.HasBlock() && CurrentRoom.GetBlockName() == "padlock")
         {
             Console.WriteLine($"You unlocked the door with the key.");
-            CurrentRoom.Block(false);
+            CurrentRoom.Block(null, false);
+            Backpack.Remove("key");
         }
         else
         {

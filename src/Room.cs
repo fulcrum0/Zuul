@@ -7,8 +7,10 @@ class Room
 	private string description;
 	private Dictionary<string, Room> exits; // stores exits of this room.
 	private Inventory chest;
-
 	private bool barricade;
+	private string barricadeName;
+
+
 
 	//property
 	public Inventory Chest
@@ -70,13 +72,26 @@ class Room
 		return str;
 	}
 
-	public void Block(bool block)
+	public void Block(string blockName, bool block)
 	{
+		if (!block)
+		{
+			barricadeName = null;
+		}
+		else
+		{
+			barricadeName = blockName;
+		}
 		barricade = block;
 	}
 
 	public bool HasBlock()
 	{
 		return barricade;
+	}
+
+	public string GetBlockName()
+	{
+		return barricadeName;
 	}
 }
