@@ -8,6 +8,8 @@ class Room
 	private Dictionary<string, Room> exits; // stores exits of this room.
 	private Inventory chest;
 
+	private bool barricade;
+
 	//property
 	public Inventory Chest
 	{
@@ -66,5 +68,15 @@ class Room
 		str += String.Join(", ", exits.Keys);
 
 		return str;
+	}
+
+	public void Block(bool block)
+	{
+		barricade = block;
+	}
+
+	public bool HasBlock()
+	{
+		return barricade;
 	}
 }

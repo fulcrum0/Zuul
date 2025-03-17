@@ -24,12 +24,18 @@ class Game
 		Room pub = new Room("in the campus pub");
 		Room lab = new Room("in a computing lab");
 		Room office = new Room("in the computing admin office");
-		Room basement = new Room("in the basement.");
+		Room basement = new Room("in the basement. There is a secret path to somewhere but it is blocked.");
 		Room secondFloor = new Room("on the 2. floor hallway");
 		Room boysWC = new Room("in the boys bathroom");
 		Room girlsWC = new Room("in the girls bathroom");
+		Room secretRoom = new Room("in the secret room");
+		Room exit = new Room("end of the game. Congratulations!");
+
+		basement.Block(true);
+		outside.Block(true);
 
 		// Initialise room exits
+		outside.AddExit("north", exit);
 		outside.AddExit("east", theatre);
 		outside.AddExit("south", lab);
 		outside.AddExit("west", pub);
@@ -49,6 +55,9 @@ class Game
 		pub.AddExit("east", outside);
 
 		basement.AddExit("up", outside);
+		basement.AddExit("forward", secretRoom);
+
+		secretRoom.AddExit("back", basement);
 
 		lab.AddExit("north", outside);
 		lab.AddExit("east", office);
@@ -59,11 +68,14 @@ class Game
 		Item knife = new Item(2);
 		Item baseballBat = new Item(5);
 		Item medkit = new Item(8);
+		Item key = new Item(1);
 		// And add them to the Rooms
+		lab.Chest.Put("medkit", medkit);
 		theatre.Chest.Put("knife", knife);
 		pub.Chest.Put("baseballBat", baseballBat);
 		boysWC.Chest.Put("medkit", medkit);
 		pub.Chest.Put("medkit", medkit);
+		secretRoom.Chest.Put("key", key);
 		// Start game outside
 		player.CurrentRoom = outside;
 	}
@@ -162,7 +174,6 @@ class Game
 	{
 		if (!command.HasSecondWord())
 		{
-			// if there is no second word, we don't know where to go...
 			Console.WriteLine("Go where?");
 			return;
 		}
@@ -177,6 +188,21 @@ class Game
 			return;
 		}
 
+		if (player.CurrentRoom.HasBlock())
+		{
+			if (direction == "forward")
+			{
+				Console.WriteLine("The path is blocked by bookshelf. You need to destroy it.");
+				return;
+			}
+			else if (direction == "north")
+			{
+				Console.WriteLine($"You need a key to unlock it.");
+				return;
+			}
+		}
+
+		// Move to the next room
 		player.CurrentRoom = nextRoom;
 		Look();
 		player.Damage(10);
@@ -249,6 +275,17 @@ class Game
 					player.Heal(40);
 					player.Backpack.Remove(itemName);
 					return $"{itemName} is used.";
+				case "knife":
+					player.AttackKnife();
+					break;
+				case "baseballBat":
+					player.AttackBaseballBat();
+					player.Backpack.Remove(itemName);
+					break;
+				case "key":
+					player.UseKey();
+					player.Backpack.Remove(itemName);
+					break;
 			}
 		}
 		return $"{itemName} cannot be used.";

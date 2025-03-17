@@ -28,7 +28,15 @@ class Player
         if (health <= 0)
         {
             health = 0;
+            Die();
         }
+    }
+
+    private void Die()
+    {
+        Console.WriteLine("You died. Game over.");
+        Console.WriteLine("Type 'dotnet run' to play again.");
+        Environment.Exit(0);
     }
 
     public void Heal(int amount)
@@ -39,11 +47,6 @@ class Player
             health = 100;
         }
         Console.WriteLine($"You healed yourself. Your hp is {health}/100");
-    }
-
-    public bool IsAlive()
-    {
-        return health > 0;
     }
 
     public int GetHealth()
@@ -93,5 +96,43 @@ class Player
     public string GetInventory()
     {
         return backpack.GetItems();
+    }
+
+    public void AttackKnife()
+    {
+        if (CurrentRoom.HasBlock())
+        {
+            Console.WriteLine($"Knife is not strong enough to break the barricade.");
+        }
+        else
+        {
+            Console.WriteLine($"There is nothing to use knife on.");
+        }
+    }
+
+    public void AttackBaseballBat()
+    {
+        if (CurrentRoom.HasBlock())
+        {
+            Console.WriteLine($"You broke the barricade with the baseball bat.");
+            CurrentRoom.Block(false);
+        }
+        else
+        {
+            Console.WriteLine($"There is nothing to use baseball bat on.");
+        }
+    }
+
+    public void UseKey()
+    {
+        if (CurrentRoom.HasBlock())
+        {
+            Console.WriteLine($"You unlocked the door with the key.");
+            CurrentRoom.Block(false);
+        }
+        else
+        {
+            Console.WriteLine($"There is nothing to use key on.");
+        }
     }
 }
