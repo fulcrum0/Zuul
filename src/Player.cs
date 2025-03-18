@@ -138,4 +138,30 @@ class Player
             Console.WriteLine($"There is nothing to use key on.");
         }
     }
+    public string Use(string itemName)
+    {
+        if (!GetInventory().Contains(itemName))
+        {
+            Console.WriteLine($"There is no {itemName} in your inventory!");
+        }
+        else
+        {
+            switch (itemName)
+            {
+                case "medkit":
+                    Heal(40);
+                    break;
+                case "knife":
+                    AttackKnife();
+                    break;
+                case "baseballBat":
+                    AttackBaseballBat();
+                    break;
+                case "key":
+                    UseKey();
+                    break;
+            }
+        }
+        return $"{itemName} cannot be used.";
+    }
 }

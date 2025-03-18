@@ -146,7 +146,7 @@ class Game
 				Drop(command);
 				break;
 			case "use":
-				Use(command.SecondWord);
+				player.Use(command.SecondWord);
 				break;
 		}
 
@@ -265,32 +265,5 @@ class Game
 		{
 			Console.WriteLine($"{itemName} is deleted from your inventory.");
 		}
-	}
-
-	public string Use(string itemName)
-	{
-		if (!player.GetInventory().Contains(itemName))
-		{
-			Console.WriteLine($"There is no {itemName} in your inventory!");
-		}
-		else
-		{
-			switch (itemName)
-			{
-				case "medkit":
-					player.Heal(40);
-					break;
-				case "knife":
-					player.AttackKnife();
-					break;
-				case "baseballBat":
-					player.AttackBaseballBat();
-					break;
-				case "key":
-					player.UseKey();
-					break;
-			}
-		}
-		return $"{itemName} cannot be used.";
 	}
 }
