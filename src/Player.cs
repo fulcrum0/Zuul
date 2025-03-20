@@ -32,11 +32,18 @@ class Player
         }
     }
 
-    private void Die()
+    public bool IsAlive()
     {
-        Console.WriteLine("You died. Game over.");
-        Console.WriteLine("Type 'dotnet run' to play again.");
-        Environment.Exit(0);
+        return health > 0;
+    }
+
+    public void Die()
+    {
+        if (!IsAlive())
+        {
+            Console.WriteLine("You died. Game over.");
+            Environment.Exit(0);
+        }
     }
 
     public void Heal(int amount)

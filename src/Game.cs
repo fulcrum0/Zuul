@@ -190,15 +190,24 @@ class Game
 
 		if (player.CurrentRoom.HasBlock())
 		{
-			if (direction == "forward")
+			string blockName = player.CurrentRoom.GetBlockName();
+
+			switch (blockName)
 			{
-				Console.WriteLine("The path is blocked by bookshelf. You need to destroy it.");
-				return;
-			}
-			else if (direction == "north")
-			{
-				Console.WriteLine($"You need a key to unlock it.");
-				return;
+				case "bookshelf":
+					if (direction == "forward")
+					{
+						Console.WriteLine("The path is blocked by a bookshelf. You need to destroy it.");
+						return;
+					}
+					break;
+				case "padlock":
+					if (direction == "north")
+					{
+						Console.WriteLine("The path is blocked by a door. You need a key to unlock it.");
+						return;
+					}
+					break;
 			}
 		}
 
