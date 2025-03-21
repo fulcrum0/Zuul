@@ -8,6 +8,7 @@ class Player
     public Room CurrentRoom { get; set; }
     private Inventory backpack;
 
+
     // constructor 
     public Player()
     {
@@ -147,6 +148,11 @@ class Player
     }
     public string Use(string itemName)
     {
+        if (string.IsNullOrWhiteSpace(itemName))
+        {
+            Console.WriteLine($"Use what?");
+            return "";
+        }
         if (!GetInventory().Contains(itemName))
         {
             Console.WriteLine($"There is no {itemName} in your inventory!");
