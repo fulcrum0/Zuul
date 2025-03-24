@@ -11,3 +11,4 @@ Open this directory (with the Zuul.csproj file) in the terminal and type:
 ```
 dotnet run
 ```
+![zuul](zuul.png)
