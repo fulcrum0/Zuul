@@ -68,13 +68,15 @@ class Game
 		Item knife = new Item(2);
 		Item baseballBat = new Item(5);
 		Item medkit = new Item(8);
+		Item bigMedkit = new Item(5);
+		Item smallMedkit = new Item(2);
 		Item key = new Item(1);
 		// And add them to the Rooms
-		lab.Chest.Put("medkit", medkit);
+		// lab.Chest.Put("medkit", medkit);
 		theatre.Chest.Put("knife", knife);
 		pub.Chest.Put("baseballBat", baseballBat);
 		boysWC.Chest.Put("medkit", medkit);
-		pub.Chest.Put("medkit", medkit);
+		pub.Chest.Put("bigMedkit", bigMedkit);
 		secretRoom.Chest.Put("key", key);
 		// Start game outside
 		player.CurrentRoom = outside;
@@ -88,7 +90,7 @@ class Game
 		// Enter the main command loop. Here we repeatedly read commands and
 		// execute them until the player wants to quit.
 		bool finished = false;
-		while (!finished)
+		while (!finished && player.IsAlive())
 		{
 			Command command = parser.GetCommand();
 			finished = ProcessCommand(command);
