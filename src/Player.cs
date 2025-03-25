@@ -162,7 +162,13 @@ class Player
             switch (itemName)
             {
                 case "medkit":
+                    Heal(20);
+                    break;
+                case "bigMedkit":
                     Heal(40);
+                    break;
+                case "smallMedkit":
+                    Heal(10);
                     break;
                 case "knife":
                     AttackKnife();

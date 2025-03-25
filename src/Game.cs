@@ -67,12 +67,12 @@ class Game
 		// Create your Items here
 		Item knife = new Item(2);
 		Item baseballBat = new Item(5);
-		Item medkit = new Item(8);
-		Item bigMedkit = new Item(5);
-		Item smallMedkit = new Item(2);
+		Item medkit = new Item(5);
+		Item bigMedkit = new Item(8);
+		Item smallMedkit = new Item(3);
 		Item key = new Item(1);
 		// And add them to the Rooms
-		// lab.Chest.Put("medkit", medkit);
+		lab.Chest.Put("medkit", smallMedkit);
 		theatre.Chest.Put("knife", knife);
 		pub.Chest.Put("baseballBat", baseballBat);
 		boysWC.Chest.Put("medkit", medkit);
