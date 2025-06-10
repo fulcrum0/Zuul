@@ -38,15 +38,6 @@ class Player
         return health > 0;
     }
 
-    // public void Die()
-    // {
-    //     if (!IsAlive())
-    //     {
-    //         Console.WriteLine("You died. Game over.");
-    //         Environment.Exit(0);
-    //     }
-    // }
-
     public void Heal(int amount)
     {
         health += amount;
