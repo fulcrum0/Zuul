@@ -27,7 +27,7 @@ class Inventory
     {
         if (!items.ContainsKey(itemName))
         {
-            Console.WriteLine($"{itemName} couldn't be found.");
+            // Console.WriteLine($"{itemName} couldn't be found.");
             return null;
         }
 
